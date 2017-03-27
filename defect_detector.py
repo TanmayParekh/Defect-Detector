@@ -47,7 +47,11 @@ def pos_tag_dd(text):
 
 	print "\nPOS TAGGING DEFECT DETECTION\n"
 
-	text_list = text.split()
+	punc_remove_text = remove_punc(text)
+	text_list = punc_remove_text.split()
+	pos_tag_list = nltk.pos_tag(nltk.word_tokenize(text))
+	print "POS tagging of text:"
+	print pos_tag_list
 
 	defect_word = ""
 	defect_list = []
@@ -55,24 +59,22 @@ def pos_tag_dd(text):
 	# Check if any word is in defect_dictionary
 	# If not, it is not a defect
 	for word in text_list:
+
 		defect_list = check_defect_dict(word)
 		if defect_list:
 			defect_word = word
-			break
+			
+			# Checks the adjectives in the text and checks closeness with defect list
+			for word_tag in pos_tag_list:
+				
+				# Find all adjective related words 
+				if word_tag[1] in adj_tags:
+					if closeness_check(word_tag[0],defect_list) == 1:
+						print "Describing word found : " + (word_tag[0]) + " for " + defect_word
+						return 1
 
-	print "Defect word found : " + defect_word
 	if (defect_word == ""):
-		return 0
-
-	# Picks the adjective and prints. Doesn't work very well. Shortcomings of POS tagging
-	pos_tag_list = nltk.pos_tag(nltk.word_tokenize(text))
-	for word_tag in pos_tag_list:
-		
-		# Find all adjective related words 
-		if word_tag[1] in adj_tags:
-			if closeness_check(word_tag[0],defect_list) == 1:
-				print "Describing word found : " + (word_tag[0])
-				return 1
+		print "No Defect word found."
 
 	return 0
 
@@ -102,22 +104,20 @@ def naive_dd(text):
 		defect_list = check_defect_dict(word)
 		if defect_list:
 			defect_word = word
-			break
+			
+			# Check word by word for closeness with defect_list
+			for word in cleaned_text:
+				if closeness_check(word,defect_list) == 1:
+					print "Describing word found : " + word + " for " + defect_word
+					return 1
 
-	print "Defect word found : " + defect_word
 	if (defect_word == ""):
-		return 0
-
-	# Check word by word for closeness with defect_list
-	for word in cleaned_text:
-		if closeness_check(word,defect_list) == 1:
-			print "Describing word found : " + word
-			return 1
+		print "No Defect word found."
 
 	return 0
 
 ###########################################################################
 
-text = ""
+text = "The display is minute and of poor resolution."
 print pos_tag_dd(text)
 print naive_dd(text)
