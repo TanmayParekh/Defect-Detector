@@ -1,0 +1,43 @@
+Results:
+------------------------------------
+POS TAG DD - 
+[[81, 3], [11, 9]]
+----------------
+NAIVE DD - 
+[[80, 4], [10, 10]]
+
+POS MISMATCH
+--------------------------
+
+At nighttime, or under any kind of challenging conditions (such as a concert), the camera is SLOW as molasses to take pictures, and the pictures are often washed out or out of focus.|1
+Also, the battery latch has a nasty habit of popping open in my pocket, something that's never once happened with the HP and Canon cameras I've owned in the past.|1
+Any slight movement when taking the picture of result in a lifetime of missed memories because the picture will come out very blurry.|1
+With the blinding flash (which I was afraid would cause my 1 yr old niece retinal damage, so I decided to stop taking pictures during her birthday party :( ) the pictures were only slightly better.|1
+It's small and portable, but the picture quality was very low (compared to the similar camera I had owned and other cameras produced today.)|0
+It's saying there is shaking even when on something stable, and ADDS massive blur to the picture.|1
+But this was cheap because it is built rather cheap.|1
+Lasted only several weeks of indoor use, then error on power-up.|1
+While it was working, picture quality was not very good, but I didn't expect much given the price.|1
+I take all my photos in the lowest resolution for internet transport and I take lots of photos both inside and outside in every condition from very low to bright light.|0
+in taking video: blurs the video every few seconds.|1
+Even the still shots sometimes look a little crumby.|1
+Almost every picture is blurred and has to be discarded.|1
+I've read the manual and changed the settings - nothing improves the crappy quality of the photos.|0
+
+NAIVE MISMATCH
+--------------------------
+
+At nighttime, or under any kind of challenging conditions (such as a concert), the camera is SLOW as molasses to take pictures, and the pictures are often washed out or out of focus.|1
+Also, the battery latch has a nasty habit of popping open in my pocket, something that's never once happened with the HP and Canon cameras I've owned in the past.|1
+With the blinding flash (which I was afraid would cause my 1 yr old niece retinal damage, so I decided to stop taking pictures during her birthday party :( ) the pictures were only slightly better.|1
+It's small and portable, but the picture quality was very low (compared to the similar camera I had owned and other cameras produced today.)|0
+It's saying there is shaking even when on something stable, and ADDS massive blur to the picture.|1
+But this was cheap because it is built rather cheap.|1
+Lasted only several weeks of indoor use, then error on power-up.|1
+While it was working, picture quality was not very good, but I didn't expect much given the price.|1
+I take all my photos in the lowest resolution for internet transport and I take lots of photos both inside and outside in every condition from very low to bright light.|0
+Bought this to replace my 6 year old Fuji Finepix which had done sterling service, but was beginning to look it's age and photos were looking a bit blurry in comparison to those taken on my phone.|0
+in taking video: blurs the video every few seconds.|1
+Even the still shots sometimes look a little crumby.|1
+Almost every picture is blurred and has to be discarded.|1
+I've read the manual and changed the settings - nothing improves the crappy quality of the photos.|0

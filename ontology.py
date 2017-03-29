@@ -1,9 +1,20 @@
 import json
 
+# Make a dictionary of equivalent/similar components.
+# Replicate the list of describing words for all. (Redundancy in writing is avoided)
+def equivalent_components(defect_dict):
+
+    equivalent = {}
+    equivalent['picture'] = ['pictures', 'pic', 'pics', 'photo', 'photos', 'shot', 'shots']
+
+    for comp in equivalent.keys():
+        for equiv_comp in equivalent[comp]:
+            defect_dict[equiv_comp] = defect_dict[comp]
+
 def buildOntology():
 
     defects = {}
-    defects['picture'] = ['blurry', 'fuzzy', 'grainy', 'crappy', 'small', 'dark', 'difficult']
+    defects['picture'] = ['blurry', 'fuzzy', 'grainy', 'crappy', 'small', 'dark', 'difficult', 'worse']
     defects['colors'] = ['bleak', 'poor']
     defects['resolution'] = ['poor', 'low']
     defects['contrast'] = ['poor']
@@ -25,10 +36,13 @@ def buildOntology():
     defects['buttons'] = ['unresponsive']
     defects['tripod'] = ['light', 'lightweight']
     defects['mic'] = ['hissing']
-    defects['speed'] = ['speed', 'delay']
+    defects['speed'] = ['speed', 'delay', 'awful', 'slow']
     defects['release'] = ['loose']
     defects['flash'] = ['slow', 'bright', 'faulty']
     defects['shooting'] = ['slow', 'poor']
+    defects['video'] = ['horrible', 'awful']
+
+    equivalent_components(defects)
 
     with open('camera_ontology.json', 'w') as outfile:
         json.dump(defects, outfile)
