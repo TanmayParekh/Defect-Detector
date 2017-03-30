@@ -6,10 +6,20 @@ def equivalent_components(defect_dict):
 
     equivalent = {}
     equivalent['picture'] = ['pictures', 'pic', 'pics', 'photo', 'photos', 'shot', 'shots']
+    equivalent["colors"] = ['color','colours','colour']
+    equivalent['autofocus'] = ['focus']
+    equivalent['battery'] = ['batteries']
 
     for comp in equivalent.keys():
         for equiv_comp in equivalent[comp]:
             defect_dict[equiv_comp] = defect_dict[comp]
+
+def generic_features(defect_dict):
+
+    generic = ['terrible','awful','horrible','disappointing','useless','poor']
+
+    for comp in defect_dict:
+        defect_dict[comp] += generic
 
 def buildOntology():
 
@@ -24,7 +34,7 @@ def buildOntology():
     defects['zipper'] = ['broken', 'absent']
     defects['lens'] = ['defective', 'cheap']
     defects['autofocus'] = ['impossible', 'horrible', 'slow', 'useless', 'absent', 'joke', 'disappointing', 'confusing']
-    defects['zoom'] = ['terrible', 'stuck']
+    defects['zoom'] = ['terrible', 'stuck','slow']
     defects['viewfinder'] = ['terrible', 'poor']
     defects['life'] = ['poor', 'short']
     defects['charging'] = ['slow']
@@ -33,7 +43,7 @@ def buildOntology():
     defects['weight'] = ['heavy', 'high']
     defects['design'] = ['poor', 'cheap', 'weak', 'flimsy']
     defects['controls'] = ['limited', 'unintuitive']
-    defects['buttons'] = ['unresponsive']
+    defects['buttons'] = ['unresponsive','small','tiny']
     defects['tripod'] = ['light', 'lightweight']
     defects['mic'] = ['hissing']
     defects['speed'] = ['speed', 'delay', 'awful', 'slow']
@@ -41,7 +51,10 @@ def buildOntology():
     defects['flash'] = ['slow', 'bright', 'faulty']
     defects['shooting'] = ['slow', 'poor']
     defects['video'] = ['horrible', 'awful']
+    defects['battery'] = ['awful','drain','dead']
+    defects['memory'] = ['low','less','tiny']
 
+    generic_features(defects)
     equivalent_components(defects)
 
     with open('camera_ontology.json', 'w') as outfile:
