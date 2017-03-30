@@ -5,10 +5,11 @@ import json
 def equivalent_components(defect_dict):
 
     equivalent = {}
-    equivalent['picture'] = ['pictures', 'pic', 'pics', 'photo', 'photos', 'shot', 'shots']
+    equivalent['picture'] = ['pictures', 'pic', 'pics', 'photo', 'photos', 'shot', 'shots','image','images']
     equivalent["colors"] = ['color','colours','colour']
     equivalent['autofocus'] = ['focus']
     equivalent['battery'] = ['batteries']
+    equivalent['display'] = ['screen']
 
     for comp in equivalent.keys():
         for equiv_comp in equivalent[comp]:
@@ -16,7 +17,7 @@ def equivalent_components(defect_dict):
 
 def generic_features(defect_dict):
 
-    generic = ['terrible','awful','horrible','disappointing','useless','poor']
+    generic = ['terrible','awful','horrible','disappointing','useless','poor','cheap','error','issue']
 
     for comp in defect_dict:
         defect_dict[comp] += generic
@@ -24,6 +25,7 @@ def generic_features(defect_dict):
 def buildOntology():
 
     defects = {}
+    defects['display'] = ['fuzzy','poor','broken']
     defects['picture'] = ['blurry', 'fuzzy', 'grainy', 'crappy', 'small', 'dark', 'difficult', 'worse']
     defects['colors'] = ['bleak', 'poor']
     defects['resolution'] = ['poor', 'low']
@@ -51,8 +53,12 @@ def buildOntology():
     defects['flash'] = ['slow', 'bright', 'faulty']
     defects['shooting'] = ['slow', 'poor']
     defects['video'] = ['horrible', 'awful']
-    defects['battery'] = ['awful','drain','dead']
+    defects['battery'] = ['awful','drain','dead','hot']
     defects['memory'] = ['low','less','tiny']
+    defects['quality'] = ['poor','low']
+    defects['cover'] = ['broken','torn']
+    defects['performance'] = ['low']
+    defects['shutter'] = ['slow']
 
     generic_features(defects)
     equivalent_components(defects)
@@ -61,6 +67,19 @@ def buildOntology():
         json.dump(defects, outfile)
 
     return defects
+
+def generic_features(defect_dict):
+
+    generic = ['not work','didn\'t work','stop working']
+
+    for comp in defect_dict:
+        defect_dict[comp] += generic
+
+def build_bigram_ontology():
+
+    bi_defects = {}
+    defect['battery'] = ['popping out','wash out','drain out']
+    defect['']
 
 
 if __name__=='__main__':

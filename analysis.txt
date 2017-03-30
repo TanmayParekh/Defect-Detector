@@ -1,43 +1,141 @@
 Results:
 ------------------------------------
 POS TAG DD - 
-[[81, 3], [11, 9]]
+[[219, 4], [65, 34]]
 ----------------
 NAIVE DD - 
-[[80, 4], [10, 10]]
+[[216, 7], [50, 49]]
 
 POS MISMATCH
 --------------------------
 
 At nighttime, or under any kind of challenging conditions (such as a concert), the camera is SLOW as molasses to take pictures, and the pictures are often washed out or out of focus.|1
-Also, the battery latch has a nasty habit of popping open in my pocket, something that's never once happened with the HP and Canon cameras I've owned in the past.|1
 Any slight movement when taking the picture of result in a lifetime of missed memories because the picture will come out very blurry.|1
 With the blinding flash (which I was afraid would cause my 1 yr old niece retinal damage, so I decided to stop taking pictures during her birthday party :( ) the pictures were only slightly better.|1
-It's small and portable, but the picture quality was very low (compared to the similar camera I had owned and other cameras produced today.)|0
+If you really don't expect much, it's ok, but spending a little more--or, as I did, spending *LESS* on an older model--yielded much higher quality photos.|0
 It's saying there is shaking even when on something stable, and ADDS massive blur to the picture.|1
 But this was cheap because it is built rather cheap.|1
 Lasted only several weeks of indoor use, then error on power-up.|1
 While it was working, picture quality was not very good, but I didn't expect much given the price.|1
 I take all my photos in the lowest resolution for internet transport and I take lots of photos both inside and outside in every condition from very low to bright light.|0
 in taking video: blurs the video every few seconds.|1
-Even the still shots sometimes look a little crumby.|1
 Almost every picture is blurred and has to be discarded.|1
 I've read the manual and changed the settings - nothing improves the crappy quality of the photos.|0
+Every photo comes pre-captioned with text, and this can be a time-wasting irritation when using your photos somewhere.|1
+Batteries go dead after several days without it being used.|1
+The camera kept dying on me and after short use... turning off by itself.|1
+After only one month away, his last email told me that his camera will no longer turn on.|1
+It hesitates too long between the time the button is pushed and the picture is taken.|1
+Also the zoom is in an awkward position; not on top so that you have to move the camera away to zoom, once you've focused.|1
+Plus it doesn't move smooth and is hard to adjust.|1
+Buttons are tiny.|1
+Not good for close up photos.|1
+Battery consumption is gigantic!|1
+The first day using it they had to switch the batteries 3 TIMES!|1
+I was able to take three pictures before it ran out of memory.|1
+It eats up batteries way too quickly!|1
+Sucks the energy out of batteries like a leech.|1
+When I turned the camera on, the battery life drained within a matter of seconds.|1
+Pictures are easily blurry with even small movements, and the camera burns through batteries.|1
+I am so disappointed because I bought this camera for an event and I missed out on pictures because the camera is NOT user friendly.|1
+Useless in low light situations.|1
+The only con I could come up was that you can't manually adjust the shutter speed of the camera.|1
+Then stopped reading memory cards.|1
+But focusing far away Is a issue.|1
+I did have one problem with the camera, the battery that came with it refused to take a charge.|1
+As noted by many others, the LCD viewscreen is very hard to see when shooting in bright sunlight.|1
+Had to send it to canon to have it repaired, pins missing in the flash memory bay.|1
+Camera didn't work with flash.|1
+The controls are NOT intuitive, the ability to do simple things (like turn off the flash) are so archaically done that we only take this out if it's an outside shot or every other camera and smart phone is gone.|1
+The instant I went to click shots of the starting gate it shut off.|1
+The auto-focus struggles with alarming frequency. |1
+The LCD screen stopped working after a little over a year. |1
+Came with a broken lens.|1
+Neither lens zoomed for close ups. |1
+no slot for a memory card.|1
+no slot for memory stick, so when the battery drains (and it dies fast!) all the pictures are lost.|1
+Eats batteries after 1 second says "needs new batteries".|1
+No flash and the pictures are awful.|1
+USB cord was missing, and battery life is only a few shots then must be replaced. |1
+No way to recharge the batteries.|1
+Battery cover broke immediately after putting in batteries.|1
+awful cheap camera, cheap plastic, awful image and didnt worked properly.|1
+Terrible quality, delay in time you take picture before it is actually captured.|1
+despite putting new batteries in the camera it said the battery was empty.|1
+Can't focus the lens on anything.|1
+Software would not download into Windows 10.|1
+Display is fuzzy and colors are overly bright and not realistic.|1
+The camera only holds about 10 pictures before it is full and does not have the option for a memory card, very disappointing. |1
+The picture is blurry.|1
+no storage for pics or option to increase storage with a card|1
+Batteries drain really quick even when off.|1
+Images come out blurry.|1
+The screen was broken and wouldn't show any picture.|1
+When its accidentally dropped it erases all of the pics stored.|1
+All my pictures come out looking "blue".|1
+Battery consumption is gigantic!|1
+Pictures are easily blurry with even small movements, and the camera burns through batteries.|1
+Software with camera does not load pictures correctly.|1
+Zoom lens didn't work well.|1
+Camera is small, nice looking and I love the larger screen to view my photos.|0
 
 NAIVE MISMATCH
 --------------------------
 
-At nighttime, or under any kind of challenging conditions (such as a concert), the camera is SLOW as molasses to take pictures, and the pictures are often washed out or out of focus.|1
-Also, the battery latch has a nasty habit of popping open in my pocket, something that's never once happened with the HP and Canon cameras I've owned in the past.|1
 With the blinding flash (which I was afraid would cause my 1 yr old niece retinal damage, so I decided to stop taking pictures during her birthday party :( ) the pictures were only slightly better.|1
-It's small and portable, but the picture quality was very low (compared to the similar camera I had owned and other cameras produced today.)|0
+If you really don't expect much, it's ok, but spending a little more--or, as I did, spending *LESS* on an older model--yielded much higher quality photos.|0
+I've had it a little over a year, now the Image Stabilization has Parkinson's..|0
 It's saying there is shaking even when on something stable, and ADDS massive blur to the picture.|1
 But this was cheap because it is built rather cheap.|1
 Lasted only several weeks of indoor use, then error on power-up.|1
 While it was working, picture quality was not very good, but I didn't expect much given the price.|1
 I take all my photos in the lowest resolution for internet transport and I take lots of photos both inside and outside in every condition from very low to bright light.|0
+My last camera was a cheap Samsung which I bought at Costco for like $100 and it worked great until the battery/SD card hinged cover broke off.|0
 Bought this to replace my 6 year old Fuji Finepix which had done sterling service, but was beginning to look it's age and photos were looking a bit blurry in comparison to those taken on my phone.|0
 in taking video: blurs the video every few seconds.|1
-Even the still shots sometimes look a little crumby.|1
 Almost every picture is blurred and has to be discarded.|1
 I've read the manual and changed the settings - nothing improves the crappy quality of the photos.|0
+Every photo comes pre-captioned with text, and this can be a time-wasting irritation when using your photos somewhere.|1
+The camera kept dying on me and after short use... turning off by itself.|1
+After only one month away, his last email told me that his camera will no longer turn on.|1
+It hesitates too long between the time the button is pushed and the picture is taken.|1
+Also the zoom is in an awkward position; not on top so that you have to move the camera away to zoom, once you've focused.|1
+Plus it doesn't move smooth and is hard to adjust.|1
+Not good for close up photos.|1
+Battery consumption is gigantic!|1
+The first day using it they had to switch the batteries 3 TIMES!|1
+I was able to take three pictures before it ran out of memory.|1
+It eats up batteries way too quickly!|1
+Sucks the energy out of batteries like a leech.|1
+I am so disappointed because I bought this camera for an event and I missed out on pictures because the camera is NOT user friendly.|1
+Useless in low light situations.|1
+Then stopped reading memory cards.|1
+But focusing far away Is a issue.|1
+I did have one problem with the camera, the battery that came with it refused to take a charge.|1
+As noted by many others, the LCD viewscreen is very hard to see when shooting in bright sunlight.|1
+Had to send it to canon to have it repaired, pins missing in the flash memory bay.|1
+Camera didn't work with flash.|1
+The controls are NOT intuitive, the ability to do simple things (like turn off the flash) are so archaically done that we only take this out if it's an outside shot or every other camera and smart phone is gone.|1
+The instant I went to click shots of the starting gate it shut off.|1
+The auto-focus struggles with alarming frequency. |1
+The LCD screen stopped working after a little over a year. |1
+Came with a broken lens.|1
+Neither lens zoomed for close ups. |1
+no slot for a memory card.|1
+Eats batteries after 1 second says "needs new batteries".|1
+No flash and the pictures are awful.|1
+USB cord was missing, and battery life is only a few shots then must be replaced. |1
+No way to recharge the batteries.|1
+awful cheap camera, cheap plastic, awful image and didnt worked properly.|1
+Terrible quality, delay in time you take picture before it is actually captured.|1
+despite putting new batteries in the camera it said the battery was empty.|1
+Can't focus the lens on anything.|1
+Software would not download into Windows 10.|1
+The camera only holds about 10 pictures before it is full and does not have the option for a memory card, very disappointing. |1
+no storage for pics or option to increase storage with a card|1
+When its accidentally dropped it erases all of the pics stored.|1
+All my pictures come out looking "blue".|1
+Battery consumption is gigantic!|1
+Software with camera does not load pictures correctly.|1
+Zoom lens didn't work well.|1
+Camera is small, nice looking and I love the larger screen to view my photos.|0
