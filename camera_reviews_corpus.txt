@@ -347,7 +347,7 @@ Buttons did not work.|1
 It always focuses on the ground, despite where I move the center object.|1
 The pictures don't come out centered. |1
 The photos come out very off centered from what it looks like while actually taking the photo.|1
-It sucked..worked for a few pictures and broke..waste of $.|1
+It sucked..worked for a few pictures and broke..waste of $.|0
 Poor quality focus on camera. |1
 Photo quality is less than expected.|1
 It doesn't focus the way it should.|1
@@ -376,7 +376,7 @@ there is no protection over the lens.|1
 The flash is not adequate in the dark. |1
 As soon as you turn off the power all changes you made in the setting goes back to defult.|1
 Quality better than quantity.|0
-Awful camera.|1
+Awful camera.|0
 batteries wear out after 30 minutes of use. |1
 Keeps saying low power and turning off. |1
 First of all, the photos are very bad!|1
