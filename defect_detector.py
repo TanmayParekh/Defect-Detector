@@ -12,6 +12,7 @@ defect_dict = ontology.buildOntology()
 # Tag list for pos tag checking
 adj_tags = ["JJ", "JJR", "JJS"]
 adv_tags = ["RB", "RBR", "RBS"]
+not_wordlist = ["not","none"]
 
 ###########################################################################
 
@@ -29,19 +30,23 @@ def check_defect_dict(word):
 # Check how close a word is to the words in the list
 # Using wordnet features here
 def closeness_check(word,defect_list):
-	
-	return wordnet_tejas.closeness(word,defect_list) 
+    
+    return wordnet_tejas.closeness(word,defect_list) 
 
 # Remove the various punctuations from the text
 def remove_punc(text):
     return text.translate(None, string.punctuation)
+
+def negative_present(word_list):
+    return 0
+
 
 ###########################################################################
 
 # Use POS Tagging to tag words.
 # STEP 1 - Check if defect word is present. If not, return 0
 # STEP 2 - If present, use closeness of adjectives (with list of adjectives to describe the defect) to decide if defect or not
-def pos_tag_dd(text,isPrint):
+def pos_tag_dd(text,isPrint,threshold):
 
     if (isPrint):
         print "\nPOS TAGGING DEFECT DETECTION\n"
@@ -71,10 +76,17 @@ def pos_tag_dd(text,isPrint):
                 # Find all adjective related words 
                 if word_tag[1] in adj_tags:
                     closest_defect = closeness_check(word_tag[0],defect_list)
-                    if closest_defect[0] > 0.5:
-                        if (isPrint):
-                            print "Describing word found : " + (word_tag[0]) + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
-                        return 1
+                    if closest_defect[0] > threshold:
+
+                        # If negative sentiment present, then it should not be a defect.
+                        if negative_present(text_list):
+                            if (isPrint):
+                                print "Defect found. But negative word also present. Negating meaning."
+                            return 0
+                        else:
+                            if (isPrint):
+                                print "Describing word found : " + (word_tag[0]) + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
+                            return 1
 
     if (defect_word == ""):
         if (isPrint):
@@ -88,7 +100,7 @@ def pos_tag_dd(text,isPrint):
 # STEP 1 - Remove stop words from sentence
 # STEP 2 - Check if defect word is present. If not, return 0
 # STEP 3 - Check closeness with adjective list for each word
-def naive_dd(text,isPrint):
+def naive_dd(text,isPrint,threshold):
 
     if (isPrint):
         print "\nNAIVE DEFECT DETECTION\n"
@@ -114,10 +126,16 @@ def naive_dd(text,isPrint):
             # Check word by word for closeness with defect_list
             for word in cleaned_text:
                 closest_defect = closeness_check(word, defect_list)
-                if closest_defect[0] > 0.5:
-                    if (isPrint):
-                        print "Describing word found : " + word + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
-                    return 1
+                if closest_defect[0] > threshold:
+                    # If negative sentiment present, then it should not be a defect.
+                    if negative_present(cleaned_text):
+                        if (isPrint):
+                            print "Defect found. But negative word also present. Negating meaning."
+                        return 0
+                    else:
+                        if (isPrint):
+                            print "Describing word found : " + word + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
+                        return 1
 
     if (defect_word == ""):
         if (isPrint):
@@ -163,7 +181,7 @@ def make_confusion_matrix(true_label,predicted_label):
     return con_matrix, mismatched
 
 # Given a corpus of text, evaluate the various methods
-def evaluate_corpus(corpus, printWrong):
+def evaluate_corpus(corpus, printWrong, writeInFile, threshold):
 
     dataset = make_corpus(corpus)
     pos_tag_prediction = []
@@ -175,8 +193,8 @@ def evaluate_corpus(corpus, printWrong):
         sentence = data_point[0]
         annotation = data_point[1]
 
-        pos_tag_annotation = pos_tag_dd(sentence,0)
-        naive_annotation = naive_dd(sentence,0)
+        pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
+        naive_annotation = naive_dd(sentence,0,threshold)
 
         pos_tag_prediction.append(pos_tag_annotation)
         naive_prediction.append(naive_annotation)
@@ -185,12 +203,20 @@ def evaluate_corpus(corpus, printWrong):
     pos_con_matrix, pos_mismatch = make_confusion_matrix(true_annotation,pos_tag_prediction)
     naive_con_matrix, naive_mismatch = make_confusion_matrix(true_annotation,naive_prediction)
 
-    print ("Results:\n------------------------------------")
-    print "POS TAG DD - "
-    print pos_con_matrix
-    print "----------------"
-    print "NAIVE DD - "
-    print naive_con_matrix
+    if (writeInFile):
+        f1 = open("POS_Results.csv",'a')
+        f1.write(str(threshold) + ',' + str(pos_con_matrix[0][0]) + ',' + str(pos_con_matrix[0][1]) + ',' + str(pos_con_matrix[1][0]) + ',' + str(pos_con_matrix[1][1]) + "\n")
+        f1.close()
+        f2 = open("Naive_Results.csv",'a')
+        f2.write(str(threshold) + ',' + str(naive_con_matrix[0][0]) + ',' + str(naive_con_matrix[0][1]) + ',' + str(naive_con_matrix[1][0]) + ',' + str(naive_con_matrix[1][1]) + "\n")
+        f2.close()
+    else:
+        print ("Results:\n------------------------------------")
+        print "POS TAG DD - "
+        print pos_con_matrix
+        print "----------------"
+        print "NAIVE DD - "
+        print naive_con_matrix
 
     if (printWrong):
 
@@ -204,4 +230,5 @@ def evaluate_corpus(corpus, printWrong):
 
 ############################################################################
 
-evaluate_corpus("camera_reviews_corpus.txt",1)
+for i in range(20):
+    evaluate_corpus("camera_reviews_corpus.txt",0,1,5*float(i)/100)
