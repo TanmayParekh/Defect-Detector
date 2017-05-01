@@ -11,7 +11,7 @@ def equivalent_components(defect_dict):
     equivalent['battery'] = ['batteries']
     equivalent['display'] = ['screen']
     equivalent['controls'] = ['control']
-    equivalent['charging'] = ['charge']
+    equivalent['charging'] = ['charge','charger']
     equivalent['wi-fi'] = ['wireless','wifi']
     equivalent['sound'] = ['pickup', 'sounds', 'audio']
 
@@ -21,7 +21,7 @@ def equivalent_components(defect_dict):
 
 def generic_features(defect_dict):
 
-    generic = ['terrible','awful','horrible','disappointing','useless','poor','cheap','error','issue','sucked','worse','shuts','shut','broken','joke','trash']
+    generic = ['terrible','awful','horrible','disappointing','useless','poor','cheap','issue','sucked','worse','shuts','shut','broken','joke','trash']
 
     for comp in defect_dict:
         defect_dict[comp] += generic
@@ -30,7 +30,7 @@ def buildOntology():
 
     defects = {}
     defects['display'] = ['fuzzy','poor','broken','grainy','froze','black','pixilated']
-    defects['picture'] = ['blurry', 'fuzzy', 'grainy', 'crappy', 'small', 'dark', 'difficult','unclear','noisy','foggy','pixilated','overexposed','underexposed']
+    defects['picture'] = ['blurry', 'fuzzy', 'grainy', 'crappy', 'dark', 'difficult','unclear','noisy','foggy','pixilated','overexposed','underexposed']
     defects['colors'] = ['bleak', 'poor','drab','unbalanced']
     defects['resolution'] = ['poor', 'low']
     defects['contrast'] = ['poor']
@@ -48,7 +48,7 @@ def buildOntology():
     defects['sensor'] = ['poor', 'tiny']
     defects['weight'] = ['heavy', 'high']
     defects['design'] = ['poor', 'cheap', 'weak', 'flimsy']
-    defects['controls'] = ['limited', 'unintuitive']
+    defects['controls'] = ['limited', 'unintuitive','error']
     defects['buttons'] = ['nonresponsive','non-responsive','unresponsive','small','tiny']
     defects['tripod'] = ['light', 'lightweight']
     defects['mic'] = ['hissing']
@@ -57,14 +57,14 @@ def buildOntology():
     defects['flash'] = ['slow', 'bright', 'faulty']
     defects['shooting'] = ['slow', 'poor']
     defects['video'] = ['horrible', 'awful','blurry','grainy','fuzzy','noisy','pixilated','choppy']
-    defects['battery'] = ['awful','drain','dead','hot','exhaust']
+    defects['battery'] = ['awful','drain','dead','hot','exhaust','error']
     defects['memory'] = ['low','less','tiny']
     defects['quality'] = ['poor','low']
     defects['cover'] = ['broken','torn']
     defects['performance'] = ['low']
     defects['shutter'] = ['slow']
-    defects['wi-fi'] = ['difficult','unintuitive','slow','unresponsive']
-    defects['sound'] = ['loud','fuzzy','muffled']
+    defects['wi-fi'] = ['difficult','unintuitive','slow','unresponsive','error']
+    defects['sound'] = ['loud','fuzzy','muffled','error']
     defects['lighting'] = ['dark','low']
 
     generic_features(defects)

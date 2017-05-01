@@ -1,5 +1,5 @@
 import nltk
-import ontology, wordnet_closeness
+import ontology, wordnet_closeness, dependency
 import string
 from nltk.corpus import stopwords
 import sys
@@ -12,7 +12,6 @@ defect_dict = ontology.buildOntology()
 # Tag list for pos tag checking
 adj_tags = ["JJ", "JJR", "JJS"]
 adv_tags = ["RB", "RBR", "RBS"]
-not_wordlist = ["not","none"]
 
 ###########################################################################
 
@@ -37,9 +36,11 @@ def closeness_check(word,defect_list):
 def remove_punc(text):
     return text.translate(None, string.punctuation)
 
-def negative_present(word_list):
-    return 0
-
+def negative_present(word_list,keyword):
+    text = word_list[0]
+    for i in range(len(word_list)-1):
+        text += " " + word_list[i+1]
+    return dependency.check_neg(text,keyword)
 
 ###########################################################################
 
@@ -92,7 +93,7 @@ def pos_tag_dd(text,isPrint,window,threshold):
                     if closest_defect[0] > threshold:
 
                         # If negative sentiment present, then it should not be a defect.
-                        if negative_present(text_list):
+                        if negative_present(text_list,word_tag[0]):
                             if (isPrint):
                                 print "Defect found. But negative word also present. Negating meaning."
                             return 0
@@ -166,7 +167,7 @@ def naive_dd(text,isPrint,window,threshold):
                 closest_defect = closeness_check(word, defect_list)
                 if closest_defect[0] > threshold:
                     # If negative sentiment present, then it should not be a defect.
-                    if negative_present(cleaned_text):
+                    if negative_present(cleaned_text,word):
                         if (isPrint):
                             print "Defect found. But negative word also present. Negating meaning."
                         return 0

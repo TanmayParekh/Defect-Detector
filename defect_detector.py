@@ -1,5 +1,5 @@
 import nltk
-import ontology, wordnet_closeness
+import ontology, wordnet_closeness, dependency
 import string
 from nltk.corpus import stopwords
 
@@ -37,8 +37,11 @@ def closeness_check(word,defect_list):
 def remove_punc(text):
     return text.translate(None, string.punctuation)
 
-def negative_present(word_list):
-    return 0
+def negative_present(word_list,keyword):
+    text = word_list[0]
+    for i in range(len(word_list)-1):
+        text += " " + word_list[i+1]
+    return dependency.check_neg(text,keyword)
 
 
 ###########################################################################
@@ -62,6 +65,7 @@ def pos_tag_dd(text,isPrint,window,threshold):
 
     defect_word = ""
     defect_list = []
+    defect_found = 0
 
     # Check if any word is in defect_dictionary
     # If not, it is not a defect
@@ -92,7 +96,7 @@ def pos_tag_dd(text,isPrint,window,threshold):
                     if closest_defect[0] > threshold:
 
                         # If negative sentiment present, then it should not be a defect.
-                        if negative_present(text_list):
+                        if negative_present(text_list,word_tag[0]):
                             if (isPrint):
                                 print "Defect found. But negative word also present. Negating meaning."
                             return 0
@@ -100,6 +104,7 @@ def pos_tag_dd(text,isPrint,window,threshold):
                             if (isPrint):
                                 print "Describing word found : " + (word_tag[0]) + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
                             done = 1
+                            defect_found = 1
                             break
 
             if done == 1:
@@ -107,6 +112,8 @@ def pos_tag_dd(text,isPrint,window,threshold):
             elif (isPrint):
                 print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
 
+    if defect_found == 1:
+        return 1
 
     if (defect_word == ""):
         if (isPrint):
@@ -138,6 +145,7 @@ def naive_dd(text,isPrint,window,threshold):
 
     defect_word = ""
     defect_list = []
+    defect_found = 0
 
     # Check if any word is in defect_dictionary
     # If not, it is not a defect
@@ -166,7 +174,7 @@ def naive_dd(text,isPrint,window,threshold):
                 closest_defect = closeness_check(word, defect_list)
                 if closest_defect[0] > threshold:
                     # If negative sentiment present, then it should not be a defect.
-                    if negative_present(cleaned_text):
+                    if negative_present(cleaned_text,word):
                         if (isPrint):
                             print "Defect found. But negative word also present. Negating meaning."
                         return 0
@@ -174,12 +182,16 @@ def naive_dd(text,isPrint,window,threshold):
                         if (isPrint):
                             print "Describing word found : " + word + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
                         done = 1
+                        defect_found = 1
                         break
 
             if done == 1:
                 continue
             elif (isPrint):
                 print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
+
+    if defect_found == 1:
+        return 1
 
     if (defect_word == ""):
         if (isPrint):
@@ -225,7 +237,7 @@ def make_confusion_matrix(true_label,predicted_label):
     return con_matrix, mismatched
 
 # Given a corpus of text, evaluate the various methods
-def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
+def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold, window):
 
     if (isOnline):
 
@@ -235,8 +247,8 @@ def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
         sentence = raw_input()
         while (sentence != "quit"):
 
-            pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
-            naive_annotation = naive_dd(sentence,0,threshold)
+            pos_tag_annotation = pos_tag_dd(sentence,0,window,threshold)
+            naive_annotation = naive_dd(sentence,0,window,threshold)
 
             sentence = raw_input()
 
@@ -251,8 +263,8 @@ def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
             sentence = data_point[0]
             annotation = data_point[1]
 
-            pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
-            naive_annotation = naive_dd(sentence,0,threshold)
+            pos_tag_annotation = pos_tag_dd(sentence,0,window,threshold)
+            naive_annotation = naive_dd(sentence,0,window,threshold)
 
             pos_tag_prediction.append(pos_tag_annotation)
             naive_prediction.append(naive_annotation)
@@ -290,4 +302,4 @@ def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
 
 # for i in range(20):
     # evaluate_corpus("camera_reviews_corpus.txt",1,0,5*float(i)/100)
-evaluate_corpus("camera_reviews_corpus.txt",1,0,1,0.15)
+evaluate_corpus("camera_reviews_corpus.txt",1,0,0,0.15,5)
