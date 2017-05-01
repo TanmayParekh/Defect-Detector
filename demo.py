@@ -46,7 +46,7 @@ def negative_present(word_list):
 # Use POS Tagging to tag words.
 # STEP 1 - Check if defect word is present. If not, return 0
 # STEP 2 - If present, use closeness of adjectives (with list of adjectives to describe the defect) to decide if defect or not
-def pos_tag_dd(text,isPrint,threshold):
+def pos_tag_dd(text,isPrint,window,threshold):
 
     if (isPrint):
         print "\nPOS TAGGING DEFECT DETECTION\n"
@@ -65,19 +65,29 @@ def pos_tag_dd(text,isPrint,threshold):
 
     # Check if any word is in defect_dictionary
     # If not, it is not a defect
-    for word in text_list:
+    for i in range(len(text_list)):
+
+        word = text_list[i]
 
         defect_list = check_defect_dict(word)
         if defect_list:
             defect_word = word
 
+            # Local parameters
             done = 0
+            lower = max(i-window,0)
+            upper = min(i+window+1,len(text_list))
             
             # Checks the adjectives in the text and checks closeness with defect list
-            for word_tag in pos_tag_list:
-                
+            for j in range(lower,upper):
+
+                if j == i:
+                    continue
+
+                word_tag = pos_tag_list[j]
+
                 # Find all adjective related words 
-                if word_tag[1] in adj_tags:
+                if word_tag[1] in adj_tags or word_tag[1] in adv_tags:
                     closest_defect = closeness_check(word_tag[0],defect_list)
                     if closest_defect[0] > threshold:
 
@@ -110,7 +120,7 @@ def pos_tag_dd(text,isPrint,threshold):
 # STEP 1 - Remove stop words from sentence
 # STEP 2 - Check if defect word is present. If not, return 0
 # STEP 3 - Check closeness with adjective list for each word
-def naive_dd(text,isPrint,threshold):
+def naive_dd(text,isPrint,window,threshold):
 
     if (isPrint):
         print "\nNAIVE DEFECT DETECTION\n"
@@ -119,7 +129,9 @@ def naive_dd(text,isPrint,threshold):
     text = text.lower()
     punc_remove_text = remove_punc(text)
     stop_list = set(stopwords.words('english'))
-    cleaned_text = [i for i in punc_remove_text.split() if i not in stop_list]
+    # cleaned_text = [i for i in punc_remove_text.split() if i not in stop_list]
+    cleaned_text =  punc_remove_text.split()
+
     if (isPrint):
         print "Stopword-removed list of words:"
         print cleaned_text
@@ -129,15 +141,28 @@ def naive_dd(text,isPrint,threshold):
 
     # Check if any word is in defect_dictionary
     # If not, it is not a defect
-    for word in cleaned_text:
+    for i in range(len(cleaned_text)):
+
+        word = cleaned_text[i]
+
         defect_list = check_defect_dict(word)
         if defect_list:
             defect_word = word
             
+            # Local parameters
             done = 0
+            lower = max(i-window,0)
+            upper = min(i+window+1,len(cleaned_text))
 
             # Check word by word for closeness with defect_list
-            for word in cleaned_text:
+            for j in range(lower,upper):
+
+                # If component word found, then don't check with it
+                if j == i:
+                    continue
+
+                word = cleaned_text[j]
+
                 closest_defect = closeness_check(word, defect_list)
                 if closest_defect[0] > threshold:
                     # If negative sentiment present, then it should not be a defect.
@@ -181,7 +206,7 @@ def make_corpus(corpus_file):
     return test_data
 
 # Given a corpus of text, evaluate the various methods
-def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
+def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold, window):
 
     if (isOnline):
 
@@ -194,9 +219,9 @@ def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
             # Matching the sentence
             print "-------------------------------------------------------------------------------------------"
 
-            pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
+            pos_tag_annotation = pos_tag_dd(sentence,1,window,threshold)
             print "\n------------------------------------"
-            naive_annotation = naive_dd(sentence,1,threshold)
+            naive_annotation = naive_dd(sentence,1,window,threshold)
 
             print "\n==========================================================================================\n\n"
 
@@ -215,9 +240,9 @@ def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
             print "Sentence: " + sentence
             print "-------------------------------------------------------------------------------------------"
 
-            pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
+            pos_tag_annotation = pos_tag_dd(sentence,1,window,threshold)
             print "\n------------------------------------"
-            naive_annotation = naive_dd(sentence,1,threshold)
+            naive_annotation = naive_dd(sentence,1,window,threshold)
 
             # pos_tag_prediction.append(pos_tag_annotation)
             # naive_prediction.append(naive_annotation)
@@ -229,4 +254,4 @@ def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
 
 ############################################################################
 
-evaluate_corpus("demo_sentences.txt",0,1,1,0.35)
+evaluate_corpus("demo_sentences.txt",0,1,1,0.15,5)
