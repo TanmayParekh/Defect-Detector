@@ -2,7 +2,7 @@ import nltk
 import ontology, wordnet_closeness
 import string
 from nltk.corpus import stopwords
-
+import sys
 
 ###########################################################################
 
@@ -89,12 +89,12 @@ def pos_tag_dd(text,isPrint,threshold):
                             return 1
 
             if (isPrint):
-                print "Component '" + defect_word + "' found. But no keyword corresponding to it is found. Hence not a defect."
+                print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
 
 
     if (defect_word == ""):
         if (isPrint):
-            print "No Defect word found."
+            print "No component found."
 
     return 0
 
@@ -142,11 +142,11 @@ def naive_dd(text,isPrint,threshold):
                         return 1
 
             if (isPrint):
-                print "Component '" + defect_word + "' found. But no close keyword corresponding to it is found. Hence not a defect."
+                print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
 
     if (defect_word == ""):
         if (isPrint):
-            print "No Defect word found."
+            print "No component found."
 
     return 0
 
@@ -180,16 +180,19 @@ def evaluate_corpus(corpus, printWrong, writeInFile, threshold):
         sentence = data_point
 
         print "Sentence: " + sentence
-        print "========================================================================================="
+        print "-------------------------------------------------------------------------------------------"
 
         pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
-        print "\n------------------------------------\n"
+        print "\n------------------------------------"
         naive_annotation = naive_dd(sentence,1,threshold)
 
         pos_tag_prediction.append(pos_tag_annotation)
         naive_prediction.append(naive_annotation)
 
-        print "------------------------------------------------------------------------------------------\n\n"
+        print "\n==========================================================================================\n\n"
+
+        sys.stdin.read(1)
+
 
 ############################################################################
 
