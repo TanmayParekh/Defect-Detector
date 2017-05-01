@@ -70,6 +70,8 @@ def pos_tag_dd(text,isPrint,threshold):
         defect_list = check_defect_dict(word)
         if defect_list:
             defect_word = word
+
+            done = 0
             
             # Checks the adjectives in the text and checks closeness with defect list
             for word_tag in pos_tag_list:
@@ -87,9 +89,12 @@ def pos_tag_dd(text,isPrint,threshold):
                         else:
                             if (isPrint):
                                 print "Describing word found : " + (word_tag[0]) + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
-                            return 1
+                            done = 1
+                            break
 
-            if (isPrint):
+            if done == 1:
+                continue
+            elif (isPrint):
                 print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
 
 
@@ -129,6 +134,8 @@ def naive_dd(text,isPrint,threshold):
         if defect_list:
             defect_word = word
             
+            done = 0
+
             # Check word by word for closeness with defect_list
             for word in cleaned_text:
                 closest_defect = closeness_check(word, defect_list)
@@ -141,9 +148,12 @@ def naive_dd(text,isPrint,threshold):
                     else:
                         if (isPrint):
                             print "Describing word found : " + word + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
-                        continue
+                        done = 1
+                        break
 
-            if (isPrint):
+            if done == 1:
+                continue
+            elif (isPrint):
                 print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
 
     if (defect_word == ""):
