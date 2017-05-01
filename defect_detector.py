@@ -51,6 +51,7 @@ def pos_tag_dd(text,isPrint,threshold):
     if (isPrint):
         print "\nPOS TAGGING DEFECT DETECTION\n"
 
+    text = text.lower()
     punc_remove_text = remove_punc(text)
     text_list = punc_remove_text.split()
     pos_tag_list = nltk.pos_tag(nltk.word_tokenize(text))
@@ -106,6 +107,7 @@ def naive_dd(text,isPrint,threshold):
         print "\nNAIVE DEFECT DETECTION\n"
 
     # Remove the stopwords
+    text = text.lower()
     punc_remove_text = remove_punc(text)
     stop_list = set(stopwords.words('english'))
     cleaned_text = [i for i in punc_remove_text.lower().split() if i not in stop_list]
@@ -181,54 +183,69 @@ def make_confusion_matrix(true_label,predicted_label):
     return con_matrix, mismatched
 
 # Given a corpus of text, evaluate the various methods
-def evaluate_corpus(corpus, printWrong, writeInFile, threshold):
+def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
 
-    dataset = make_corpus(corpus)
-    pos_tag_prediction = []
-    naive_prediction = []
-    true_annotation = []
+    if (isOnline):
 
-    for data_point in dataset:
+        print "Online System Entered"
+        print "Enter 'quit' to exit from the system"
 
-        sentence = data_point[0]
-        annotation = data_point[1]
+        sentence = raw_input()
+        while (sentence != "quit"):
 
-        pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
-        naive_annotation = naive_dd(sentence,0,threshold)
+            pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
+            naive_annotation = naive_dd(sentence,0,threshold)
 
-        pos_tag_prediction.append(pos_tag_annotation)
-        naive_prediction.append(naive_annotation)
-        true_annotation.append(annotation)
+            sentence = raw_input()
 
-    pos_con_matrix, pos_mismatch = make_confusion_matrix(true_annotation,pos_tag_prediction)
-    naive_con_matrix, naive_mismatch = make_confusion_matrix(true_annotation,naive_prediction)
-
-    if (writeInFile):
-        f1 = open("POS_Results.csv",'a')
-        f1.write(str(threshold) + ',' + str(pos_con_matrix[0][0]) + ',' + str(pos_con_matrix[0][1]) + ',' + str(pos_con_matrix[1][0]) + ',' + str(pos_con_matrix[1][1]) + "\n")
-        f1.close()
-        f2 = open("Naive_Results.csv",'a')
-        f2.write(str(threshold) + ',' + str(naive_con_matrix[0][0]) + ',' + str(naive_con_matrix[0][1]) + ',' + str(naive_con_matrix[1][0]) + ',' + str(naive_con_matrix[1][1]) + "\n")
-        f2.close()
     else:
-        print ("Results:\n------------------------------------")
-        print "POS TAG DD - "
-        print pos_con_matrix
-        print "----------------"
-        print "NAIVE DD - "
-        print naive_con_matrix
+        dataset = make_corpus(corpus)
+        pos_tag_prediction = []
+        naive_prediction = []
+        true_annotation = []
 
-    if (printWrong):
+        for data_point in dataset:
 
-        print "\nPOS MISMATCH\n--------------------------\n"
-        for i in pos_mismatch:
-            print dataset[i][0] + "|" + str(dataset[i][1])
+            sentence = data_point[0]
+            annotation = data_point[1]
 
-        print "\nNAIVE MISMATCH\n--------------------------\n"
-        for i in naive_mismatch:
-            print dataset[i][0] + "|" + str(dataset[i][1])
+            pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
+            naive_annotation = naive_dd(sentence,0,threshold)
+
+            pos_tag_prediction.append(pos_tag_annotation)
+            naive_prediction.append(naive_annotation)
+            true_annotation.append(annotation)
+
+        pos_con_matrix, pos_mismatch = make_confusion_matrix(true_annotation,pos_tag_prediction)
+        naive_con_matrix, naive_mismatch = make_confusion_matrix(true_annotation,naive_prediction)
+
+        if (writeInFile):
+            f1 = open("POS_Results.csv",'a')
+            f1.write(str(threshold) + ',' + str(pos_con_matrix[0][0]) + ',' + str(pos_con_matrix[0][1]) + ',' + str(pos_con_matrix[1][0]) + ',' + str(pos_con_matrix[1][1]) + "\n")
+            f1.close()
+            f2 = open("Naive_Results.csv",'a')
+            f2.write(str(threshold) + ',' + str(naive_con_matrix[0][0]) + ',' + str(naive_con_matrix[0][1]) + ',' + str(naive_con_matrix[1][0]) + ',' + str(naive_con_matrix[1][1]) + "\n")
+            f2.close()
+        else:
+            print ("Results:\n------------------------------------")
+            print "POS TAG DD - "
+            print pos_con_matrix
+            print "----------------"
+            print "NAIVE DD - "
+            print naive_con_matrix
+
+        if (printWrong):
+
+            print "\nPOS MISMATCH\n--------------------------\n"
+            for i in pos_mismatch:
+                print dataset[i][0] + "|" + str(dataset[i][1])
+
+            print "\nNAIVE MISMATCH\n--------------------------\n"
+            for i in naive_mismatch:
+                print dataset[i][0] + "|" + str(dataset[i][1])
 
 ############################################################################
 
-for i in range(20):
-    evaluate_corpus("camera_reviews_corpus.txt",0,1,5*float(i)/100)
+# for i in range(20):
+    # evaluate_corpus("camera_reviews_corpus.txt",1,0,5*float(i)/100)
+evaluate_corpus("camera_reviews_corpus.txt",1,0,1,0.15)

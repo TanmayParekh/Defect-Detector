@@ -51,6 +51,7 @@ def pos_tag_dd(text,isPrint,threshold):
     if (isPrint):
         print "\nPOS TAGGING DEFECT DETECTION\n"
 
+    text = text.lower()
     punc_remove_text = remove_punc(text)
     text_list = punc_remove_text.split()
     pos_tag_list = nltk.pos_tag(nltk.word_tokenize(text))
@@ -110,9 +111,10 @@ def naive_dd(text,isPrint,threshold):
         print "\nNAIVE DEFECT DETECTION\n"
 
     # Remove the stopwords
+    text = text.lower()
     punc_remove_text = remove_punc(text)
     stop_list = set(stopwords.words('english'))
-    cleaned_text = [i for i in punc_remove_text.lower().split() if i not in stop_list]
+    cleaned_text = [i for i in punc_remove_text.split() if i not in stop_list]
     if (isPrint):
         print "Stopword-removed list of words:"
         print cleaned_text
@@ -139,7 +141,7 @@ def naive_dd(text,isPrint,threshold):
                     else:
                         if (isPrint):
                             print "Describing word found : " + word + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
-                        return 1
+                        continue
 
             if (isPrint):
                 print "Component '" + defect_word + "' found. But no defect keyword corresponding to it is found. Hence not a defect."
@@ -169,31 +171,52 @@ def make_corpus(corpus_file):
     return test_data
 
 # Given a corpus of text, evaluate the various methods
-def evaluate_corpus(corpus, printWrong, writeInFile, threshold):
+def evaluate_corpus(corpus, printWrong, writeInFile, isOnline, threshold):
 
-    dataset = make_corpus(corpus)
-    pos_tag_prediction = []
-    naive_prediction = []
+    if (isOnline):
 
-    for data_point in dataset:
+        print "Online System Entered"
+        print "Enter 'quit' to exit from the system"
 
-        sentence = data_point
+        sentence = raw_input(">> ")
+        while (sentence != "quit"):
 
-        print "Sentence: " + sentence
-        print "-------------------------------------------------------------------------------------------"
+            # Matching the sentence
+            print "-------------------------------------------------------------------------------------------"
 
-        pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
-        print "\n------------------------------------"
-        naive_annotation = naive_dd(sentence,1,threshold)
+            pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
+            print "\n------------------------------------"
+            naive_annotation = naive_dd(sentence,1,threshold)
 
-        pos_tag_prediction.append(pos_tag_annotation)
-        naive_prediction.append(naive_annotation)
+            print "\n==========================================================================================\n\n"
 
-        print "\n==========================================================================================\n\n"
+            sentence = raw_input(">> ")
 
-        sys.stdin.read(1)
+    else:
+
+        dataset = make_corpus(corpus)
+        # pos_tag_prediction = []
+        # naive_prediction = []
+
+        for data_point in dataset:
+
+            sentence = data_point
+
+            print "Sentence: " + sentence
+            print "-------------------------------------------------------------------------------------------"
+
+            pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
+            print "\n------------------------------------"
+            naive_annotation = naive_dd(sentence,1,threshold)
+
+            # pos_tag_prediction.append(pos_tag_annotation)
+            # naive_prediction.append(naive_annotation)
+
+            print "\n==========================================================================================\n\n"
+
+            sys.stdin.read(1)
 
 
 ############################################################################
 
-evaluate_corpus("demo_sentences.txt",0,1,0.2)
+evaluate_corpus("demo_sentences.txt",0,1,1,0.35)
