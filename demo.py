@@ -88,6 +88,10 @@ def pos_tag_dd(text,isPrint,threshold):
                                 print "Describing word found : " + (word_tag[0]) + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
                             return 1
 
+            if (isPrint):
+                print "Component '" + defect_word + "' found. But no keyword corresponding to it is found. Hence not a defect."
+
+
     if (defect_word == ""):
         if (isPrint):
             print "No Defect word found."
@@ -137,6 +141,9 @@ def naive_dd(text,isPrint,threshold):
                             print "Describing word found : " + word + " (matched with " + closest_defect[1] +  ") for " + defect_word + ". Score: " + str(closest_defect[0])
                         return 1
 
+            if (isPrint):
+                print "Component '" + defect_word + "' found. But no close keyword corresponding to it is found. Hence not a defect."
+
     if (defect_word == ""):
         if (isPrint):
             print "No Defect word found."
@@ -153,32 +160,13 @@ def make_corpus(corpus_file):
     
     f = open(corpus_file,'r')
     for line in f:
-        split_line = line.split("|")
-        test_tuple = (split_line[0],int(split_line[1]))
-        test_data.append(test_tuple)
+        if line[-1] == "\n":
+            test_data.append(line[:-1])
+        else:
+            test_data.append(line)
 
     f.close()
     return test_data
-
-# Calculate the confusion matrix given true and predicted values
-def make_confusion_matrix(true_label,predicted_label):
-
-    con_matrix = [[0 for x in range(2)] for y in range(2)]
-    mismatched = []
-
-    for i in range(len(true_label)):
-        if (true_label[i] == 0 and predicted_label[i] == 0):
-            con_matrix[0][0] += 1
-        elif (true_label[i] == 1 and predicted_label[i] == 0):
-            con_matrix[1][0] += 1
-            mismatched.append(i)
-        elif (true_label[i] == 0 and predicted_label[i] == 1):
-            con_matrix[0][1] += 1
-            mismatched.append(i)
-        elif (true_label[i] == 1 and predicted_label[i] == 1):
-            con_matrix[1][1] += 1
-
-    return con_matrix, mismatched
 
 # Given a corpus of text, evaluate the various methods
 def evaluate_corpus(corpus, printWrong, writeInFile, threshold):
@@ -186,49 +174,23 @@ def evaluate_corpus(corpus, printWrong, writeInFile, threshold):
     dataset = make_corpus(corpus)
     pos_tag_prediction = []
     naive_prediction = []
-    true_annotation = []
 
     for data_point in dataset:
 
-        sentence = data_point[0]
-        annotation = data_point[1]
+        sentence = data_point
 
-        pos_tag_annotation = pos_tag_dd(sentence,0,threshold)
-        naive_annotation = naive_dd(sentence,0,threshold)
+        print "Sentence: " + sentence
+        print "========================================================================================="
+
+        pos_tag_annotation = pos_tag_dd(sentence,1,threshold)
+        print "\n------------------------------------\n"
+        naive_annotation = naive_dd(sentence,1,threshold)
 
         pos_tag_prediction.append(pos_tag_annotation)
         naive_prediction.append(naive_annotation)
-        true_annotation.append(annotation)
 
-    pos_con_matrix, pos_mismatch = make_confusion_matrix(true_annotation,pos_tag_prediction)
-    naive_con_matrix, naive_mismatch = make_confusion_matrix(true_annotation,naive_prediction)
-
-    if (writeInFile):
-        f1 = open("POS_Results.csv",'a')
-        f1.write(str(threshold) + ',' + str(pos_con_matrix[0][0]) + ',' + str(pos_con_matrix[0][1]) + ',' + str(pos_con_matrix[1][0]) + ',' + str(pos_con_matrix[1][1]) + "\n")
-        f1.close()
-        f2 = open("Naive_Results.csv",'a')
-        f2.write(str(threshold) + ',' + str(naive_con_matrix[0][0]) + ',' + str(naive_con_matrix[0][1]) + ',' + str(naive_con_matrix[1][0]) + ',' + str(naive_con_matrix[1][1]) + "\n")
-        f2.close()
-    else:
-        print ("Results:\n------------------------------------")
-        print "POS TAG DD - "
-        print pos_con_matrix
-        print "----------------"
-        print "NAIVE DD - "
-        print naive_con_matrix
-
-    if (printWrong):
-
-        print "\nPOS MISMATCH\n--------------------------\n"
-        for i in pos_mismatch:
-            print dataset[i][0] + "|" + str(dataset[i][1])
-
-        print "\nNAIVE MISMATCH\n--------------------------\n"
-        for i in naive_mismatch:
-            print dataset[i][0] + "|" + str(dataset[i][1])
+        print "------------------------------------------------------------------------------------------\n\n"
 
 ############################################################################
 
-for i in range(20):
-    evaluate_corpus("camera_reviews_corpus.txt",0,1,5*float(i)/100)
+evaluate_corpus("demo_sentences.txt",0,1,0.2)
