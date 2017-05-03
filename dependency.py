@@ -20,21 +20,21 @@ neg_words = ["no","not","'t","neither","none","never"]
 
 def check_neg(text,keyword):
 
-	annotator = Annotator()
-	dep_parse = annotator.getAnnotations(text, dep_parse=True)['dep_parse']
+    annotator = Annotator()
+    dep_parse = annotator.getAnnotations(text, dep_parse=True)['dep_parse']
 
-	dp_list = dep_parse.split('\n')
-	pattern = re.compile(r'.+?\((.+?), (.+?)\)')
-	
-	edges = []
-	for dep in dp_list:
-	    m = pattern.search(dep)
-	    word1 = m.group(1).split('-')[0]
-	    word2 = m.group(2).split('-')[0]
-	    # print word1, word2
-	    if (word1 == keyword and word2 in neg_words) or (word1 in neg_words and word2 == keyword):
-	    	return 1
+    dp_list = dep_parse.split('\n')
+    pattern = re.compile(r'.+?\((.+?), (.+?)\)')
 
-	return 0
+    edges = []
+    for dep in dp_list:
+        m = pattern.search(dep)
+        word1 = m.group(1).split('-')[0]
+        word2 = m.group(2).split('-')[0]
+        # print word1, word2
+        if (word1 == keyword and word2 in neg_words) or (word1 in neg_words and word2 == keyword):
+             return 1
+
+    return 0
 
 # print check_neg("The pictures are not blurry","blurry")
