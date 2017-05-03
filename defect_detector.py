@@ -57,7 +57,7 @@ def pos_tag_dd(text,isPrint,window,threshold):
     text = text.lower()
     punc_remove_text = remove_punc(text)
     text_list = punc_remove_text.split()
-    pos_tag_list = nltk.pos_tag(nltk.word_tokenize(text))
+    pos_tag_list = nltk.pos_tag(nltk.word_tokenize(punc_remove_text))
     
     if (isPrint):
         print "POS tagging of text:"

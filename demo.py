@@ -55,8 +55,8 @@ def pos_tag_dd(text,isPrint,window,threshold):
     text = text.lower()
     punc_remove_text = remove_punc(text)
     text_list = punc_remove_text.split()
-    pos_tag_list = nltk.pos_tag(nltk.word_tokenize(text))
-    
+    pos_tag_list = nltk.pos_tag(nltk.word_tokenize(punc_remove_text))
+
     if (isPrint):
         print "POS tagging of text:"
         print pos_tag_list
@@ -78,13 +78,12 @@ def pos_tag_dd(text,isPrint,window,threshold):
             done = 0
             lower = max(i-window,0)
             upper = min(i+window+1,len(text_list))
-            
+
             # Checks the adjectives in the text and checks closeness with defect list
             for j in range(lower,upper):
 
                 if j == i:
                     continue
-
                 word_tag = pos_tag_list[j]
 
                 # Find all adjective related words 
